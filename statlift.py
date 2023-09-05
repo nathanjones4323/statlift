@@ -1,10 +1,13 @@
-import streamlit as st
-import pandas as pd
+from os.path import dirname, join
+
 import altair as alt
-from os.path import join, dirname
-from session_state_handler import init_session_state_updates, on_csv_upload, \
-    on_date_change, on_exercise_change, on_workout_change
+import pandas as pd
+import streamlit as st
+
 from sepump import SePump
+from session_state_handler import (init_session_state_updates, on_csv_upload,
+                                   on_date_change, on_exercise_change,
+                                   on_workout_change)
 from streamlit_utils import v_space
 
 
@@ -24,7 +27,7 @@ def show_total_stats(data: pd.DataFrame) -> None:
     total_duration = sum(duration_data["duration"])
     cl1, cl2, cl3, cl4, cl5 = st.columns(5)
     cl1.metric(label="\# of Workouts", value="{:,}".format(int(total_workouts)))
-    cl2.metric(label="Total Volume (kg)", value="{:,}".format(int(total_volume)))
+    cl2.metric(label="Total Volume (lbs)", value="{:,}".format(int(total_volume)))
     cl3.metric(label="\# of Sets", value="{:,}".format(int(total_sets)))
     cl4.metric(label="\# of Reps", value="{:,}".format(int(total_reps)))
     cl5.metric(label="\# of Minutes trained", value="{:,}".format(int(total_duration)))
@@ -147,10 +150,10 @@ if __name__ == "__main__":
     ecl1, ecl2, ecl3 = st.columns(3)
     ecl1.metric(label="Total Sets", value=total_sets, delta=total_sets_delta)
     ecl2.metric(label="Total Reps", value=total_reps, delta=total_reps_delta)
-    ecl3.metric(label="Total Volume (kg)", value=total_volume, delta=total_volume_delta)
-    ecl1.metric(label="Max Weight (kg)", value=max_weight, delta=max_weight_delta)
+    ecl3.metric(label="Total Volume (lbs)", value=total_volume, delta=total_volume_delta)
+    ecl1.metric(label="Max Weight (lbs)", value=max_weight, delta=max_weight_delta)
     ecl2.metric(label="Max Reps", value=max_reps, delta=max_reps_delta)
-    ecl3.metric(label="Max Volume (kg)", value=max_volume, delta=max_volume_delta)
+    ecl3.metric(label="Max Volume (lbs)", value=max_volume, delta=max_volume_delta)
 
     # 2b. Graphs
     v_space(1)
